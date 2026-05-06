@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAPENDA – Badan Pendapatan dan Aset Daerah Provinsi NTT</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0f2640;
+      --navy2:    #1a3a5c;
+      --navy3:    #1e4878;
+      --gold:     #c8973a;
+      --gold2:    #e8b84b;
+      --gold-lt:  #fdf3e3;
+      --blue-lt:  #e6f1fb;
+      --white:    #ffffff;
+      --light:    #f0f4f8;
+      --surface:  #f7f9fc;
+      --text:     #1a2332;
+      --muted:    #5a6a7a;
+      --border:   #dde5ee;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    [id] { scroll-margin-top: 96px; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+
+    /* ===================== TOP BAR ===================== */
+    .topbar {
+      background: #0a1e33;
+      color: #8fb3d4;
+      font-size: 12px;
+      padding: 7px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .topbar-left, .topbar-right { display: flex; align-items: center; gap: 18px; }
+    .topbar span { display: flex; align-items: center; gap: 5px; }
+    .topbar i { font-size: 13px; color: var(--gold); }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      background: linear-gradient(110deg, #071a2d 0%, var(--navy) 42%, var(--navy3) 100%);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.28);
+      border-bottom: 1px solid rgba(232,184,75,.18);
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      flex: 1;
+    }
+    .logo-img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      padding: 4px;
+    }
+    .logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .logo-img i { font-size: 26px; color: var(--navy); }
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .logo-text p { font-size: 11px; color: #8fb3d4; margin-top: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a,
+    .nav-drop-toggle {
+      color: #adc5dd;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .nav-drop-toggle {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-links a:hover,
+    .nav-links a.active,
+    .nav-dropdown.open .nav-drop-toggle,
+    .nav-drop-toggle:hover {
+      background: rgba(200,151,58,.15);
+      color: var(--gold2);
+    }
+    .nav-dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 180px;
+      max-height: 180px;
+      overflow-y: auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+      padding: 8px;
+      z-index: 120;
+    }
+    .nav-dropdown.open .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu a {
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+    .dropdown-menu a:hover {
+      background: var(--gold-lt);
+      color: var(--navy);
+    }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--white) !important;
+      padding: 8px 18px !important;
+      border-radius: 6px !important;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--gold2) !important; color: var(--navy) !important; }
+
+    .hamburger { display: none; cursor: pointer; color: #fff; font-size: 24px; padding: 8px; }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: var(--navy);
+      padding: 16px 24px 20px;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+    .mobile-menu a { color: #adc5dd; padding: 10px 14px; border-radius: 6px; display: block; font-size: 14px; }
+    .mobile-menu a:hover { background: rgba(200,151,58,.15); color: var(--gold2); }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      background:
+        linear-gradient(90deg, rgba(10,30,51,.92) 0%, rgba(15,38,64,.78) 45%, rgba(30,72,120,.42) 100%),
+        url("hero.png") center / cover no-repeat;
+      padding: 80px 32px 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(5,18,32,.18);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      z-index: 1;
+    }
+    .hero-deco1 {
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: rgba(200,151,58,.06);
+      border-radius: 50%;
+      filter: blur(10px);
+    }
+    .hero-deco2 {
+      position: absolute;
+      bottom: -100px; right: 60px;
+      width: 250px; height: 250px;
+      background: rgba(200,151,58,.04);
+      border-radius: 50%;
+      filter: blur(10px);
+    }
+    .hero-deco1, .hero-deco2, .hero-deco3 { z-index: 0; }
+    .hero-deco3 {
+      position: absolute;
+      top: 20px; left: 30%;
+      width: 1px; height: 60%;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,.05), transparent);
+    }
+    .hero-inner { max-width: 680px; position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(200,151,58,.18);
+      color: var(--gold2);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border: 1px solid rgba(200,151,58,.25);
+    }
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero h2 span { color: var(--gold2); }
+    .hero p {
+      color: #d5e4f1;
+      font-size: 16px;
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--white);
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all .2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover { background: var(--gold2); color: var(--navy); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--gold2); color: var(--gold2); }
+
+    /* ===================== STATS ===================== */
+    .stats-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+    }
+    .stat-item {
+      padding: 22px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background .2s;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: var(--surface); }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .stat-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ===================== QUICK LINKS ===================== */
+    .quick-links {
+      background: linear-gradient(135deg, var(--gold-lt), var(--blue-lt));
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .quick-links-inner {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    .quick-link {
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(15,38,64,.08);
+      border-radius: 12px;
+      color: var(--navy);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all .2s;
+    }
+    .quick-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 18px rgba(15,38,64,.1);
+    }
+    .quick-link i {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: var(--gold2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ===================== LAYANAN ===================== */
+    .section { padding: 56px 32px; }
+    .section-alt { padding: 56px 32px; background: var(--white); }
+    .section-hdr { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; }
+    .section-hdr-left {}
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .see-all {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .see-all:hover { color: var(--navy); }
+
+    .layanan-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .layanan-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .layanan-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(200,151,58,.12);
+    }
+    .layanan-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .layanan-icon i { font-size: 26px; }
+    .ic-blue  { background: #e6f1fb; } .ic-blue  i { color: #185fa5; }
+    .ic-green { background: #eaf5e8; } .ic-green i { color: #3b6d11; }
+    .ic-amber { background: #fdf3e3; } .ic-amber i { color: #ba7517; }
+    .ic-purple{ background: #eeeffe; } .ic-purple i { color: #534ab7; }
+    .ic-red   { background: #fdeaea; } .ic-red   i { color: #a32d2d; }
+    .ic-teal  { background: #e3f5f0; } .ic-teal  i { color: #0f6e56; }
+    .ic-navy  { background: #e6f1fb; } .ic-navy  i { color: var(--navy); }
+    .ic-pink  { background: #fbe8f0; } .ic-pink  i { color: #993556; }
+    .layanan-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+    .layanan-desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    /* ===================== BERITA ===================== */
+    .berita-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .berita-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .berita-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      border-color: #b5c8dc;
+    }
+    .berita-thumb {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+    }
+    .bt1 { background: #e6f1fb; }
+    .bt2 { background: #eaf5e8; }
+    .bt3 { background: var(--gold-lt); }
+    .berita-body { padding: 14px 16px; }
+    .berita-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .tag-blue   { background: #e6f1fb; color: #185fa5; }
+    .tag-green  { background: #eaf5e8; color: #3b6d11; }
+    .tag-amber  { background: #fdf3e3; color: #ba7517; }
+    .berita-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+    .berita-date {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .berita-date i { font-size: 12px; }
+
+    /* ===================== PENGUMUMAN ===================== */
+    .pgm-list { list-style: none; }
+    .pgm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pgm-item:last-child { border-bottom: none; }
+    .pgm-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .pgm-content {}
+    .pgm-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .pgm-date { font-size: 11px; color: var(--muted); }
+
+    /* ===================== VISI MISI ===================== */
+    .visi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .visi-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 26px;
+      border: 1px solid var(--border);
+    }
+    .visi-card.featured {
+      background: linear-gradient(135deg, var(--navy), var(--navy2));
+      border-color: transparent;
+      color: var(--white);
+    }
+    .visi-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .visi-card.featured .visi-label { color: var(--gold2); }
+    .visi-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--navy);
+    }
+    .visi-card.featured .visi-text { color: var(--white); }
+    .misi-list { list-style: none; margin-top: 4px; }
+    .misi-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .misi-list li i { color: var(--gold); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+
+    /* ===================== PROFIL DETAIL & PPID ===================== */
+    .profil-detail {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--gold-lt) 100%);
+    }
+    .profil-note {
+      background: var(--navy);
+      color: #cfe0ef;
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .detail-grid,
+    .struktur-grid,
+    .history-grid,
+    .ppid-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .detail-grid { grid-template-columns: .95fr 1.35fr; margin-bottom: 22px; }
+    .struktur-grid { grid-template-columns: repeat(2, 1fr); }
+    .history-grid { grid-template-columns: .9fr 1.1fr; margin-top: 16px; }
+    .ppid-grid { grid-template-columns: repeat(3, 1fr); }
+    .struktur-wrap { margin-top: 8px; }
+    .small-title { font-size: 22px; margin-bottom: 14px; }
+    .detail-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .detail-card.primary {
+      background: linear-gradient(135deg, var(--navy), var(--navy2));
+      border-color: transparent;
+      color: var(--white);
+    }
+    .detail-card h3 {
+      color: var(--navy);
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+    .detail-card.primary h3,
+    .detail-card.primary p { color: var(--white); }
+    .detail-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .detail-card p:last-child { margin-bottom: 0; }
+    .detail-label {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .detail-list,
+    .history-list {
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .detail-list li,
+    .history-list li { margin-bottom: 6px; }
+    .detail-list li::marker,
+    .history-list li::marker { color: var(--gold); }
+    .uptd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .uptd-tags span {
+      background: var(--gold-lt);
+      color: #704d16;
+      border: 1px solid #efd8a9;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ===================== INFO BAR ===================== */
+    .info-bar {
+      background: linear-gradient(135deg, #0a1e33, var(--navy));
+      padding: 50px 32px;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+    }
+    .info-block h3 {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--gold2);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .info-block p {
+      font-size: 13px;
+      color: #8fb3d4;
+      line-height: 1.9;
+    }
+    .info-block a { color: #8fb3d4; transition: color .2s; }
+    .info-block a:hover { color: var(--gold2); }
+    .sosmed { display: flex; gap: 10px; margin-top: 12px; }
+    .sosmed a {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8fb3d4;
+      font-size: 16px;
+      transition: all .2s;
+    }
+    .sosmed a:hover { border-color: var(--gold2); color: var(--gold2); }
+    .map-block {
+      grid-column: 1 / -1;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .map-block iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      display: block;
+    }
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 14px;
+      color: var(--gold2) !important;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: #0a1427;
+      padding: 0;
+    }
+    .footer-main {
+      padding: 36px 32px;
+      display: grid;
+      grid-template-columns: 1.25fr .8fr .8fr 1fr;
+      gap: 28px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .footer-brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      background: var(--white);
+      border-radius: 50%;
+      padding: 4px;
+    }
+    .footer-col h4 {
+      color: var(--gold2);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 12px;
+    }
+    .footer-col p,
+    .footer-col a {
+      color: #8fb3d4;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .footer-col a {
+      display: block;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--gold2); }
+    .footer-bottom {
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    footer p { font-size: 12px; color: #3a5a7a; }
+    footer a { color: #3a5a7a; transition: color .2s; }
+    footer a:hover { color: var(--gold); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      html { scroll-padding-top: 16px; }
+      [id] { scroll-margin-top: 16px; }
+      .topbar { display: none; }
+      .navbar { padding: 0 16px; position: relative; flex-wrap: wrap; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mobile-menu.open { display: flex; }
+      .hero { padding: 48px 16px 56px; }
+      .hero h2 { font-size: 28px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+      .quick-links { padding: 20px 16px; }
+      .quick-links-inner { grid-template-columns: 1fr; }
+      .section, .section-alt { padding: 36px 16px; }
+      .layanan-grid { grid-template-columns: repeat(2,1fr); }
+      .berita-grid { grid-template-columns: 1fr; }
+      .visi-grid { grid-template-columns: 1fr; }
+      .detail-grid, .struktur-grid, .history-grid, .ppid-grid { grid-template-columns: 1fr; }
+      .info-bar { grid-template-columns: 1fr; padding: 32px 16px; }
+      .section-hdr { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .footer-main { grid-template-columns: 1fr; padding: 28px 16px; }
+      .footer-bottom { flex-direction: column; align-items: center; text-align: center; padding: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .layanan-grid { grid-template-columns: 1fr 1fr; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span><i class="ti ti-mail"></i> bapenda@nttprov.go.id</span>
+    <span><i class="ti ti-phone"></i> (0380) 833-XXX</span>
+  </div>
+  <div class="topbar-right">
+    <span><i class="ti ti-clock"></i> Senin – Jumat: 07.30 – 15.30 WITA</span>
+    <span><i class="ti ti-map-pin"></i> Jl. El Tari No.52, Oebobo, Kota Kupang</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="logo-area">
+    <div class="logo-img"><img src="logo.png" alt="Logo BPAD NTT"></div>
+    <div class="logo-text">
+      <h1>Badan Pendapatan & Aset Daerah</h1>
+      <p>Pemerintah Provinsi Nusa Tenggara Timur</p>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">Beranda</a>
+    <a href="#profil">Profil</a>
+    <a href="#layanan">Layanan</a>
+    <div class="nav-dropdown" id="appDropdown">
+      <button class="nav-drop-toggle" type="button" onclick="toggleAppMenu(event)">
+        Aplikasi <i class="ti ti-chevron-down"></i>
+      </button>
+      <div class="dropdown-menu" id="appMenu">
+        <a href="https://magangbpad.netlify.app/" target="_blank" rel="noopener"><i class="ti ti-briefcase"></i> Magang Hub</a>
+        <a href="https://play.google.com/store/apps/details?id=com.iwana.betantt&hl=id" target="_blank" rel="noopener"><i class="ti ti-apps"></i> Pro NTT</a>
+      </div>
+    </div>
+    <a href="#ppid">PPID</a>
+    <a href="#berita">Berita</a>
+    <a href="#pengumuman">Pengumuman</a>
+    <a href="#kontak" class="nav-cta"><i class="ti ti-phone-call"></i> Hubungi Kami</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Beranda</a>
+    <a href="#profil">Profil</a>
+    <a href="#layanan">Layanan</a>
+    <a href="https://magangbpad.netlify.app/" target="_blank" rel="noopener">Magang Hub</a>
+    <a href="https://play.google.com/store/apps/details?id=com.iwana.betantt&hl=id" target="_blank" rel="noopener">Pro NTT</a>
+    <a href="#ppid">PPID</a>
+    <a href="#berita">Berita</a>
+    <a href="#pengumuman">Pengumuman</a>
+    <a href="#kontak">Hubungi Kami</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco1"></div>
+  <div class="hero-deco2"></div>
+  <div class="hero-deco3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><i class="ti ti-shield-check" style="font-size:11px"></i> Pelayanan Publik Terpercaya</div>
+    <h2>Optimalisasi <span>Pendapatan Daerah</span><br>& Pengelolaan Aset</h2>
+    <p>Memberikan pelayanan prima dalam pengelolaan pendapatan daerah dan aset untuk mendukung pembangunan Nusa Tenggara Timur yang berkeadilan dan berkelanjutan.</p>
+    <div class="hero-btns">
+      <a href="#layanan" class="btn-gold"><i class="ti ti-list-check"></i> Lihat Layanan</a>
+      <a href="#profil" class="btn-ghost"><i class="ti ti-info-circle"></i> Tentang Kami</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">Rp 2,8T</div>
+    <div class="stat-label">Target PAD 2026</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">12+</div>
+    <div class="stat-label">Jenis Pajak Daerah</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">22</div>
+    <div class="stat-label">Kab/Kota Wilayah</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">Kepuasan Wajib Pajak</div>
+    <div class="stat-note">Berdasarkan Laporan SKM 2025</div>
+  </div>
+</div>
+
+<!-- QUICK LINKS -->
+<section class="quick-links">
+  <div class="quick-links-inner">
+    <a class="quick-link" href="#layanan"><i class="ti ti-receipt-tax"></i> Layanan Pajak</a>
+    <a class="quick-link" href="#ppid"><i class="ti ti-file-search"></i> PPID</a>
+    <a class="quick-link" href="#profil"><i class="ti ti-map-2"></i> UPTD</a>
+    <a class="quick-link" href="#pengumuman"><i class="ti ti-bell"></i> Pengumuman</a>
+    <a class="quick-link" href="https://magangbpad.netlify.app/" target="_blank" rel="noopener"><i class="ti ti-apps"></i> Aplikasi</a>
+  </div>
+</section>
+
+<!-- VISI MISI -->
+<section class="section-alt" id="profil">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-target"></i> Profil Instansi</div>
+      <div class="section-title">Visi & Misi BAPENDA</div>
+    </div>
+  </div>
+  <div class="visi-grid">
+    <div class="visi-card featured">
+      <div class="visi-label"><i class="ti ti-eye"></i> Visi</div>
+      <div class="visi-text">"Terwujudnya Pengelolaan Pendapatan dan Aset Daerah yang Profesional, Transparan, dan Akuntabel demi Mendukung Pembangunan NTT yang Sejahtera."</div>
+    </div>
+    <div class="visi-card">
+      <div class="visi-label"><i class="ti ti-list-check"></i> Misi</div>
+      <ul class="misi-list">
+        <li><i class="ti ti-check"></i> Meningkatkan kapasitas dan profesionalisme sumber daya aparatur</li>
+        <li><i class="ti ti-check"></i> Mengoptimalkan pengelolaan pendapatan daerah secara akuntabel</li>
+        <li><i class="ti ti-check"></i> Melaksanakan tertib administrasi dan inventarisasi aset daerah</li>
+        <li><i class="ti ti-check"></i> Mengembangkan sistem informasi berbasis teknologi modern</li>
+        <li><i class="ti ti-check"></i> Meningkatkan pelayanan prima kepada masyarakat dan wajib pajak</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TUGAS FUNGSI STRUKTUR -->
+<section class="section profil-detail">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-sitemap"></i> Organisasi</div>
+      <div class="section-title">Tugas, Fungsi, dan Struktur Organisasi</div>
+    </div>
+  </div>
+
+  <div class="profil-note">
+    Struktur organisasi Badan Pendapatan dan Aset Daerah Provinsi Nusa Tenggara Timur ditetapkan berdasarkan Peraturan Gubernur Provinsi Nusa Tenggara Timur Nomor 96 Tahun 2023 tentang Kedudukan, Susunan Organisasi, Tugas dan Fungsi serta Tata Kerja Badan Pendapatan dan Aset Daerah Provinsi Nusa Tenggara Timur.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card primary">
+      <div class="detail-label">A. Tugas Pokok</div>
+      <p>Badan Pendapatan dan Aset Daerah mempunyai tugas membantu Gubernur dalam melaksanakan fungsi penunjang urusan pemerintahan di bidang pendapatan dan aset daerah yang menjadi kewenangan daerah.</p>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label">B. Fungsi</div>
+      <ul class="detail-list">
+        <li>Penyusunan kebijakan teknis di bidang pendapatan dan aset daerah.</li>
+        <li>Pelaksanaan dukungan teknis di bidang pendapatan dan aset daerah.</li>
+        <li>Pemantauan, evaluasi, dan pelaporan pelaksanaan kegiatan pendapatan dan aset daerah.</li>
+        <li>Pembinaan teknis penyelenggaraan fungsi penunjang urusan pemerintahan daerah di bidang pendapatan dan aset daerah.</li>
+        <li>Pelaksanaan fungsi lain yang diberikan oleh Gubernur sesuai dengan tugas dan fungsinya.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="struktur-wrap">
+    <div class="section-title small-title">C. Struktur Organisasi</div>
+    <div class="struktur-grid">
+      <div class="detail-card">
+        <div class="detail-label">1. Unsur Pimpinan</div>
+        <h3>Kepala Badan</h3>
+        <p>Merumuskan program kerja Badan Pendapatan dan Aset Daerah yang mencakup kesekretariatan, pajak dan retribusi daerah, pengelolaan kekayaan daerah yang dipisahkan, pendapatan asli daerah lainnya yang sah, dana perimbangan, analisa kebutuhan dan penatausahaan aset, serta pemanfaatan, pemindahtanganan, dan pengamanan aset.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">2. Unsur Penunjang Pimpinan</div>
+        <h3>Sekretariat</h3>
+        <ul class="detail-list">
+          <li>Sekretaris merencanakan, mengendalikan, dan mengevaluasi administrasi program, keuangan, kepegawaian, dan umum.</li>
+          <li>Sub Bagian Keuangan melaksanakan pengelolaan keuangan secara transparan dan akuntabel.</li>
+          <li>Sub Bagian Kepegawaian dan Umum mengelola administrasi kepegawaian, perlengkapan, tata usaha, dan urusan rumah tangga kantor.</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">3. Unsur Pelaksana Teknis</div>
+        <h3>Bidang</h3>
+        <ul class="detail-list">
+          <li>Bidang Pendapatan I mengelola PKB, BBNKB, PBBKB, dan Pajak Rokok.</li>
+          <li>Bidang Pendapatan II mengelola retribusi daerah, kekayaan daerah, dana perimbangan, dan pendapatan daerah lainnya yang sah.</li>
+          <li>Bidang Analisa Kebutuhan dan Penatausahaan Aset mengelola analisa kebutuhan, pengadaan, penatausahaan, penilaian, dan pencatatan aset daerah.</li>
+          <li>Bidang Pemanfaatan, Pemindahtanganan, dan Pengamanan Aset mengelola pemanfaatan, pemindahtanganan, penghapusan, pengamanan, dan sengketa aset.</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">4. UPTD</div>
+        <h3>Unit Pelaksana Teknis Daerah</h3>
+        <p>UPTD BPAD tersebar di 22 kabupaten/kota di Provinsi Nusa Tenggara Timur dengan tugas melaksanakan pemungutan pajak daerah, mengelola administrasi perpajakan daerah, serta melakukan verifikasi dan penagihan pajak.</p>
+        <p>Struktur UPTD terdiri dari Kepala UPTD, Sub Bagian Tata Usaha, Seksi Penetapan dan Penagihan, serta Seksi Verifikasi.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">5. Kelompok Jabatan Fungsional</div>
+        <h3>Tenaga Profesional</h3>
+        <ul class="detail-list">
+          <li>Analis Perencana Ahli Muda.</li>
+          <li>Penilai Pemerintah Ahli Muda.</li>
+          <li>Analis Keuangan Pusat dan Daerah Ahli Muda.</li>
+          <li>Analis Kebijakan Ahli Muda.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="history-grid">
+    <div class="detail-card">
+      <div class="detail-label">Riwayat Pimpinan</div>
+      <h3>Kepala Dinas dari Tahun ke Tahun</h3>
+      <ol class="history-list">
+        <li>Piet A Tallo - Kepala Dinas Penda Tk.I NTT (15-03-1974 s/d 12-09-1983)</li>
+        <li>Drs. Joachim Reo (1983-1988)</li>
+        <li>Alo Jong Joko (1988-1993)</li>
+        <li>Joachim Reo (1993-1999)</li>
+        <li>Drs. Gaspar Parang Ehok (1999-2002)</li>
+        <li>Drs. Alex Babies (2002-2007)</li>
+        <li>L O Wila Huky (2007-2008)</li>
+        <li>Plt. Welly Katipana (2008, masa transisi)</li>
+        <li>Frans Salem (2008-2010)</li>
+        <li>Emanuel Kara (2010-2014)</li>
+        <li>Obaldus Toda - Dispenda (2014-2017)</li>
+        <li>Hali Lanan Elias - BPPKAD (2017-2019)</li>
+        <li>Zet Libing - Bapenda (2019-2021)</li>
+        <li>Alexon Lumba - Bapenda (2022-2026)</li>
+        <li>Johny Ericson Ataupah, SP. MM - Bapenda (2026-sekarang)</li>
+      </ol>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label">Sebaran Layanan</div>
+      <h3>UPTD di NTT (Kabupaten/Kota)</h3>
+      <div class="uptd-tags">
+        <span>Kabupaten Alor - Kalabahi</span>
+        <span>Kabupaten Belu - Atambua</span>
+        <span>Kabupaten Sumba Barat - Waikabubak</span>
+        <span>Kabupaten Sumba Timur - Waingapu</span>
+        <span>Kabupaten Kupang - Oelamasi</span>
+        <span>Kabupaten Timor Tengah Selatan - Soe</span>
+        <span>Kabupaten Timor Tengah Utara - Kefamenanu</span>
+        <span>Kabupaten Lembata - Lewoleba</span>
+        <span>Kabupaten Flores Timur - Larantuka</span>
+        <span>Kabupaten Sikka - Maumere</span>
+        <span>Kabupaten Ende - Ende</span>
+        <span>Kabupaten Ngada - Bajawa</span>
+        <span>Kabupaten Manggarai - Ruteng</span>
+        <span>Kabupaten Rote Ndao - Ba'a</span>
+        <span>Kabupaten Manggarai Barat - Labuan Bajo</span>
+        <span>Kabupaten Sumba Tengah - Waibakul</span>
+        <span>Kabupaten Sumba Barat Daya - Tambolaka</span>
+        <span>Kabupaten Nagekeo - Mbay</span>
+        <span>Kabupaten Manggarai Timur - Borong</span>
+        <span>Kabupaten Sabu Raijua - Seba</span>
+        <span>Kabupaten Malaka - Betun</span>
+        <span>Kota Kupang - Kupang</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section class="section" id="layanan" style="background: var(--surface);">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-grid-dots"></i> Layanan Kami</div>
+      <div class="section-title">Layanan Unggulan BAPENDA</div>
+    </div>
+    <a href="#" class="see-all">Lihat Semua Layanan <i class="ti ti-arrow-right"></i></a>
+  </div>
+  <div class="layanan-grid">
+    <div class="layanan-card">
+      <div class="layanan-icon ic-blue"><i class="ti ti-car"></i></div>
+      <div class="layanan-name">Pajak Kendaraan Bermotor</div>
+      <div class="layanan-desc">Pembayaran & perpanjangan STNK kendaraan bermotor roda dua dan empat</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-amber"><i class="ti ti-file-invoice"></i></div>
+      <div class="layanan-name">BBNKB</div>
+      <div class="layanan-desc">Bea Balik Nama Kendaraan Bermotor untuk perpindahan kepemilikan</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-teal"><i class="ti ti-droplet"></i></div>
+      <div class="layanan-name">Pajak Air Permukaan</div>
+      <div class="layanan-desc">Pengelolaan pajak atas pengambilan dan pemanfaatan air permukaan</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-red"><i class="ti ti-report"></i></div>
+      <div class="layanan-name">Pajak Rokok</div>
+      <div class="layanan-desc">Administrasi dan pengelolaan pajak rokok daerah sesuai peraturan</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-purple"><i class="ti ti-building"></i></div>
+      <div class="layanan-name">Pengelolaan Aset Daerah</div>
+      <div class="layanan-desc">Inventarisasi, pemanfaatan, dan penatausahaan aset milik daerah</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-green"><i class="ti ti-device-mobile"></i></div>
+      <div class="layanan-name">e-Samsat Online</div>
+      <div class="layanan-desc">Pembayaran pajak kendaraan bermotor secara online melalui aplikasi</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-navy"><i class="ti ti-certificate"></i></div>
+      <div class="layanan-name">NPWPD</div>
+      <div class="layanan-desc">Penerbitan Nomor Pokok Wajib Pajak Daerah bagi wajib pajak baru</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-pink"><i class="ti ti-receipt"></i></div>
+      <div class="layanan-name">Retribusi Daerah</div>
+      <div class="layanan-desc">Pengelolaan retribusi jasa umum dan jasa usaha milik pemerintah daerah</div>
+    </div>
+    <div class="layanan-card">
+      <div class="layanan-icon ic-amber"><i class="ti ti-headset"></i></div>
+      <div class="layanan-name">Konsultasi Pajak</div>
+      <div class="layanan-desc">Layanan konsultasi dan informasi perpajakan daerah bagi masyarakat</div>
+    </div>
+  </div>
+</section>
+
+<!-- PPID -->
+<section class="section-alt" id="ppid">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-file-search"></i> PPID</div>
+      <div class="section-title">Pejabat Pengelola Informasi dan Dokumentasi</div>
+    </div>
+    <a href="#kontak" class="see-all">Ajukan Permohonan <i class="ti ti-arrow-right"></i></a>
+  </div>
+  <div class="ppid-grid">
+    <div class="detail-card">
+      <div class="detail-label">Informasi Berkala</div>
+      <p>Profil instansi, program kerja, laporan kinerja, dan informasi publik yang diperbarui secara rutin.</p>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label">Informasi Setiap Saat</div>
+      <p>Daftar informasi publik, regulasi, dokumen layanan, serta data yang dapat dimohonkan masyarakat.</p>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label">Permohonan Informasi</div>
+      <p>Layanan permintaan informasi publik melalui kontak resmi atau datang langsung ke kantor BAPENDA Provinsi NTT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BERITA -->
+<section class="section-alt" id="berita">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-news"></i> Berita Terkini</div>
+      <div class="section-title">Informasi & Berita BAPENDA</div>
+    </div>
+    <a href="#" class="see-all">Semua Berita <i class="ti ti-arrow-right"></i></a>
+  </div>
+  <div class="berita-grid">
+    <div class="berita-card">
+      <div class="berita-thumb bt1"><i class="ti ti-news" style="color:#185fa5"></i></div>
+      <div class="berita-body">
+        <span class="berita-tag tag-blue">Pengumuman</span>
+        <div class="berita-title">Pembebasan Denda PKB dalam Rangka HUT Provinsi NTT ke-66</div>
+        <div class="berita-date"><i class="ti ti-calendar"></i> 15 Oktober 2026</div>
+      </div>
+    </div>
+    <div class="berita-card">
+      <div class="berita-thumb bt2"><i class="ti ti-award" style="color:#3b6d11"></i></div>
+      <div class="berita-body">
+        <span class="berita-tag tag-green">Prestasi</span>
+        <div class="berita-title">BAPENDA NTT Raih Penghargaan Terbaik Pengelolaan Aset Daerah 2026</div>
+        <div class="berita-date"><i class="ti ti-calendar"></i> 8 Oktober 2026</div>
+      </div>
+    </div>
+    <div class="berita-card">
+      <div class="berita-thumb bt3"><i class="ti ti-device-laptop" style="color:#ba7517"></i></div>
+      <div class="berita-body">
+        <span class="berita-tag tag-amber">Inovasi</span>
+        <div class="berita-title">Peluncuran Sistem e-Samsat Generasi Baru untuk Kemudahan Wajib Pajak</div>
+        <div class="berita-date"><i class="ti ti-calendar"></i> 1 Oktober 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PENGUMUMAN -->
+<section class="section" id="pengumuman" style="background: var(--surface);">
+  <div class="section-hdr">
+    <div class="section-hdr-left">
+      <div class="section-eyebrow"><i class="ti ti-bell"></i> Pengumuman</div>
+      <div class="section-title">Pengumuman Resmi</div>
+    </div>
+  </div>
+  <ul class="pgm-list">
+    <li class="pgm-item">
+      <div class="pgm-dot"></div>
+      <div class="pgm-content">
+        <div class="pgm-title">Jadwal Pemeliharaan Sistem e-Samsat — 20 Oktober 2026</div>
+        <div class="pgm-date">18 Oktober 2026</div>
+      </div>
+    </li>
+    <li class="pgm-item">
+      <div class="pgm-dot"></div>
+      <div class="pgm-content">
+        <div class="pgm-title">Perubahan Jam Pelayanan UPTD Samsat Kupang Selama Masa Libur Nasional</div>
+        <div class="pgm-date">12 Oktober 2026</div>
+      </div>
+    </li>
+    <li class="pgm-item">
+      <div class="pgm-dot"></div>
+      <div class="pgm-content">
+        <div class="pgm-title">Rekrutmen Tenaga Pendamping Pajak Daerah Kabupaten/Kota Tahun 2026</div>
+        <div class="pgm-date">5 Oktober 2026</div>
+      </div>
+    </li>
+    <li class="pgm-item">
+      <div class="pgm-dot"></div>
+      <div class="pgm-content">
+        <div class="pgm-title">Sosialisasi Peraturan Daerah tentang Pajak Daerah bagi Pelaku Usaha di Kupang</div>
+        <div class="pgm-date">28 September 2026</div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- INFO / KONTAK -->
+<div class="info-bar" id="kontak">
+  <div class="info-block">
+    <h3><i class="ti ti-map-pin"></i> Alamat Kantor</h3>
+    <p>
+      Jl. El Tari No.52, Oebobo<br>
+      Kec. Oebobo, Kota Kupang<br>
+      Nusa Tenggara Timur<br>
+      85111 — Indonesia
+    </p>
+  </div>
+  <div class="info-block">
+    <h3><i class="ti ti-headset"></i> Hubungi Kami</h3>
+    <p>
+      <a href="tel:03808330000">Telp: (0380) 833-XXX</a><br>
+      <a href="tel:03808330001">Fax: (0380) 833-XXX</a><br>
+      <a href="mailto:bapenda@nttprov.go.id">bapenda@nttprov.go.id</a>
+    </p>
+    <div class="sosmed">
+      <a href="#" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+      <a href="https://www.instagram.com/bpad_ntt/" title="Instagram" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#" title="YouTube"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#" title="Twitter/X"><i class="ti ti-brand-x"></i></a>
+    </div>
+  </div>
+  <div class="info-block">
+    <h3><i class="ti ti-clock"></i> Jam Pelayanan</h3>
+    <p>
+      Senin – Kamis:<br>07.30 – 15.30 WITA<br><br>
+      Jumat:<br>07.30 – 11.30 WITA
+    </p>
+  </div>
+  <div class="map-block">
+    <iframe
+      title="Peta Lokasi BPAD NTT"
+      src="https://www.google.com/maps?q=Jl.%20El%20Tari%20No.52%2C%20Oebobo%2C%20Kec.%20Oebobo%2C%20Kota%20Kupang%2C%20Nusa%20Tenggara%20Timur%2085111&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jl.%20El%20Tari%20No.52%2C%20Oebobo%2C%20Kec.%20Oebobo%2C%20Kota%20Kupang%2C%20Nusa%20Tenggara%20Timur%2085111" target="_blank" rel="noopener">
+      <i class="ti ti-map-2"></i> Buka di Google Maps
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Logo BPAD NTT">
+        <div>
+          <h4>BPAD NTT</h4>
+          <p>Badan Pendapatan dan Aset Daerah Provinsi Nusa Tenggara Timur.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigasi</h4>
+      <a href="#profil">Profil</a>
+      <a href="#layanan">Layanan</a>
+      <a href="#ppid">PPID</a>
+      <a href="#berita">Berita</a>
+      <a href="#pengumuman">Pengumuman</a>
+    </div>
+    <div class="footer-col">
+      <h4>Aplikasi</h4>
+      <a href="https://magangbpad.netlify.app/" target="_blank" rel="noopener">Magang Hub</a>
+      <a href="https://play.google.com/store/apps/details?id=com.iwana.betantt&hl=id" target="_blank" rel="noopener">Pro NTT</a>
+      <a href="https://www.instagram.com/bpad_ntt/" target="_blank" rel="noopener">Instagram BPAD NTT</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kontak</h4>
+      <p>Jl. El Tari No.52, Oebobo, Kec. Oebobo, Kota Kupang, NTT 85111</p>
+      <p>bapenda@nttprov.go.id</p>
+      <p>Senin - Jumat, 07.30 - 15.30 WITA</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Badan Pendapatan dan Aset Daerah Provinsi Nusa Tenggara Timur</p>
+    <p>
+      <a href="#">Kebijakan Privasi</a> &nbsp;·&nbsp;
+      <a href="#">Aksesibilitas</a> &nbsp;·&nbsp;
+      <a href="#">Peta Situs</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const m = document.getElementById('mobileMenu');
+    m.classList.toggle('open');
+  }
+  function toggleAppMenu(event) {
+    event.stopPropagation();
+    document.getElementById('appDropdown').classList.toggle('open');
+  }
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('appDropdown')?.classList.remove('open');
+  });
+  document.querySelectorAll('#appMenu a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('appDropdown').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
