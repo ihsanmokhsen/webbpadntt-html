@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <!--
+    BAGIAN HEAD
+    Berisi metadata dasar halaman, judul tab browser, favicon,
+    font Google, icon Tabler, dan file CSS utama.
+  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BAPENDA – Badan Pendapatan dan Aset Daerah Provinsi NTT</title>
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -13,7 +18,11 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!--
+  TOP BAR
+  Bar paling atas untuk informasi cepat seperti email, telepon,
+  jam layanan, dan alamat singkat.
+-->
 <div class="topbar">
   <div class="topbar-left">
     <span><i class="ti ti-mail"></i> bapenda@nttprov.go.id</span>
@@ -25,16 +34,21 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
+<!--
+  NAVBAR / HEADBAR
+  Menu navigasi utama. Link dengan href="#nama-section" akan
+  melakukan scroll ke section yang punya id sesuai.
+-->
 <nav class="navbar" id="navbar">
   <div class="logo-area">
-    <div class="logo-img"><img src="logo.png" alt="Logo BPAD NTT"></div>
+    <div class="logo-img"><img src="assets/logo.png" alt="Logo BPAD NTT"></div>
     <div class="logo-text">
       <h1>Badan Pendapatan & Aset Daerah</h1>
       <p>Pemerintah Provinsi Nusa Tenggara Timur</p>
     </div>
   </div>
   <div class="nav-links">
+    <!-- Menu desktop -->
     <a href="#" class="active">Beranda</a>
     <a href="#profil">Profil</a>
     <a href="#layanan">Layanan</a>
@@ -52,8 +66,10 @@
     <a href="#pengumuman">Pengumuman</a>
     <a href="#kontak" class="nav-cta"><i class="ti ti-phone-call"></i> Hubungi Kami</a>
   </div>
+  <!-- Tombol hamburger hanya tampil di layar kecil lewat CSS responsive. -->
   <div class="hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></div>
   <div class="mobile-menu" id="mobileMenu">
+    <!-- Menu mobile -->
     <a href="#">Beranda</a>
     <a href="#profil">Profil</a>
     <a href="#layanan">Layanan</a>
@@ -66,7 +82,11 @@
   </div>
 </nav>
 
-<!-- HERO -->
+<!--
+  HERO
+  Bagian pembuka website. Background gambar diatur dari CSS:
+  css/style.css pada class .hero.
+-->
 <section class="hero">
   <div class="hero-deco1"></div>
   <div class="hero-deco2"></div>
@@ -82,7 +102,10 @@
   </div>
 </section>
 
-<!-- STATS STRIP -->
+<!--
+  STATS STRIP
+  Ringkasan angka penting yang tampil tepat setelah hero.
+-->
 <div class="stats-strip">
   <div class="stat-item">
     <div class="stat-num">Rp 2,8T</div>
@@ -103,7 +126,10 @@
   </div>
 </div>
 
-<!-- QUICK LINKS -->
+<!--
+  QUICK LINKS
+  Shortcut ke bagian-bagian yang paling sering dibuka pengunjung.
+-->
 <section class="quick-links">
   <div class="quick-links-inner">
     <a class="quick-link" href="#layanan"><i class="ti ti-receipt-tax"></i> Layanan Pajak</a>
@@ -114,7 +140,10 @@
   </div>
 </section>
 
-<!-- VISI MISI -->
+<!--
+  PROFIL: VISI MISI
+  Bagian awal profil instansi.
+-->
 <section class="section-alt" id="profil">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -140,7 +169,11 @@
   </div>
 </section>
 
-<!-- TUGAS FUNGSI STRUKTUR -->
+<!--
+  PROFIL: TUGAS, FUNGSI, DAN STRUKTUR
+  Konten profil yang lebih panjang. Bagian ini masih statis
+  karena jarang berubah.
+-->
 <section class="section profil-detail">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -241,35 +274,49 @@
     <div class="detail-card">
       <div class="detail-label">Sebaran Layanan</div>
       <h3>UPTD di NTT (Kabupaten/Kota)</h3>
-      <div class="uptd-tags">
-        <span>Kabupaten Alor - Kalabahi</span>
-        <span>Kabupaten Belu - Atambua</span>
-        <span>Kabupaten Sumba Barat - Waikabubak</span>
-        <span>Kabupaten Sumba Timur - Waingapu</span>
-        <span>Kabupaten Kupang - Oelamasi</span>
-        <span>Kabupaten Timor Tengah Selatan - Soe</span>
-        <span>Kabupaten Timor Tengah Utara - Kefamenanu</span>
-        <span>Kabupaten Lembata - Lewoleba</span>
-        <span>Kabupaten Flores Timur - Larantuka</span>
-        <span>Kabupaten Sikka - Maumere</span>
-        <span>Kabupaten Ende - Ende</span>
-        <span>Kabupaten Ngada - Bajawa</span>
-        <span>Kabupaten Manggarai - Ruteng</span>
-        <span>Kabupaten Rote Ndao - Ba'a</span>
-        <span>Kabupaten Manggarai Barat - Labuan Bajo</span>
-        <span>Kabupaten Sumba Tengah - Waibakul</span>
-        <span>Kabupaten Sumba Barat Daya - Tambolaka</span>
-        <span>Kabupaten Nagekeo - Mbay</span>
-        <span>Kabupaten Manggarai Timur - Borong</span>
-        <span>Kabupaten Sabu Raijua - Seba</span>
-        <span>Kabupaten Malaka - Betun</span>
-        <span>Kota Kupang - Kupang</span>
+      <div class="uptd-table-wrap">
+        <table class="uptd-table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>UPTD</th>
+              <th>Nama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kota Kupang</td><td>Remmy Christian Pah, S.STP, M.Si</td></tr>
+            <tr><td>2</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Kupang</td><td>Abdulgani Rasyd Tokan, SE</td></tr>
+            <tr><td>3</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Timor Tengah Selatan</td><td>Fredrik Leky, S.IP, M.Si</td></tr>
+            <tr><td>4</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Timor Tengah Utara</td><td>Albert E. Pairikas, SE, M.Si</td></tr>
+            <tr><td>5</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Belu</td><td>Stanis Laus Moat, S.STP</td></tr>
+            <tr><td>6</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Rote Ndao</td><td>Petrus A. Manehat, S.Sos</td></tr>
+            <tr><td>7</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Flores Timur</td><td>Yohanes Boro Hali, SE</td></tr>
+            <tr><td>8</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Lembata</td><td>Oskar Ola Samon, S.Sos</td></tr>
+            <tr><td>9</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sikka</td><td>Maria Wilfrida Basilika, SE</td></tr>
+            <tr><td>10</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Ende</td><td>Alponsus Yuli, SE</td></tr>
+            <tr><td>11</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Nagekeo</td><td>Yoseph Marianus Yegho, SE</td></tr>
+            <tr><td>12</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Ngada</td><td>Anna Maria Belang, SP</td></tr>
+            <tr><td>13</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Manggarai Timur</td><td>Stanis K. Jawan, S.Sos, M.AP</td></tr>
+            <tr><td>14</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Manggarai Barat</td><td>Martianus Taruna Anjasmara Pranda, S.Sos</td></tr>
+            <tr><td>15</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Manggarai</td><td>Lorensius Agung, SP</td></tr>
+            <tr><td>16</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sumba Timur</td><td>Denny Samuel Sandy, SH</td></tr>
+            <tr><td>17</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sumba Tengah</td><td>Yohanis Umbu Sakayu, S.Sos</td></tr>
+            <tr><td>18</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sumba Barat</td><td>Kristoforus Jogo Ja, SH</td></tr>
+            <tr><td>19</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sumba Barat Daya</td><td>Emmelinda Paula Rambu Bita, S.IP, M.Si</td></tr>
+            <tr><td>20</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Alor</td><td>Cornelis Daniel Adoe, S.Sos</td></tr>
+            <tr><td>21</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Malaka</td><td>Clara Maria F. Bano, SE</td></tr>
+            <tr><td>22</td><td>Kepala UPTD Pendapatan Daerah Wilayah Kab. Sabu Raijua</td><td>Marcurius Heraclitus Bani Haba, SH</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LAYANAN -->
+<!--
+  LAYANAN
+  Daftar layanan utama BPAD. Saat ini masih statis di HTML.
+-->
 <section class="section" id="layanan" style="background: var(--surface);">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -327,7 +374,12 @@
   </div>
 </section>
 
-<!-- PPID -->
+<!--
+  PPID
+  Konten kartu PPID TIDAK ditulis langsung di sini.
+  Elemen #ppidGrid akan diisi otomatis dari data/ppid.json
+  oleh file js/main.js.
+-->
 <section class="section-alt" id="ppid">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -339,7 +391,12 @@
   <div class="ppid-grid" id="ppidGrid"></div>
 </section>
 
-<!-- BERITA -->
+<!--
+  BERITA
+  Kartu berita TIDAK ditulis langsung di sini.
+  Elemen #beritaGrid akan diisi otomatis dari data/berita.json
+  oleh file js/main.js.
+-->
 <section class="section-alt" id="berita">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -351,7 +408,12 @@
   <div class="berita-grid" id="beritaGrid"></div>
 </section>
 
-<!-- PENGUMUMAN -->
+<!--
+  PENGUMUMAN
+  Daftar pengumuman TIDAK ditulis langsung di sini.
+  Elemen #pengumumanList akan diisi otomatis dari
+  data/pengumuman.json oleh file js/main.js.
+-->
 <section class="section" id="pengumuman" style="background: var(--surface);">
   <div class="section-hdr">
     <div class="section-hdr-left">
@@ -362,7 +424,11 @@
   <ul class="pgm-list" id="pengumumanList"></ul>
 </section>
 
-<!-- INFO / KONTAK -->
+<!--
+  INFO / KONTAK
+  Berisi alamat lengkap, kontak, sosial media, jam layanan,
+  dan peta lokasi Google Maps.
+-->
 <div class="info-bar" id="kontak">
   <div class="info-block">
     <h3><i class="ti ti-map-pin"></i> Alamat Kantor</h3>
@@ -407,12 +473,16 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!--
+  FOOTER
+  Bagian paling bawah website. Berisi navigasi ulang,
+  aplikasi, kontak ringkas, dan copyright.
+-->
 <footer>
   <div class="footer-main">
     <div class="footer-col">
       <div class="footer-brand">
-        <img src="logo.png" alt="Logo BPAD NTT">
+        <img src="assets/logo.png" alt="Logo BPAD NTT">
         <div>
           <h4>BPAD NTT</h4>
           <p>Badan Pendapatan dan Aset Daerah Provinsi Nusa Tenggara Timur.</p>
@@ -450,6 +520,11 @@
   </div>
 </footer>
 
+<!--
+  SCRIPT UTAMA
+  File ini mengatur menu mobile, dropdown Aplikasi,
+  dan membaca data JSON untuk PPID, Berita, dan Pengumuman.
+-->
 <script src="js/main.js?v=20260507"></script>
 
 </body>

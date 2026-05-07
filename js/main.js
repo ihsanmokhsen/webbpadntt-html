@@ -1,9 +1,21 @@
+// =========================================================
+// 1. Lokasi file JSON
+// =========================================================
+// Website ini tidak memakai database. Data yang mudah berubah
+// disimpan di folder `data/`, lalu dibaca oleh JavaScript.
 const DATA_FILES = {
   berita: 'data/berita.json',
   pengumuman: 'data/pengumuman.json',
   ppid: 'data/ppid.json'
 };
 
+// =========================================================
+// 2. Data cadangan jika file JSON gagal dibaca
+// =========================================================
+// Fallback ini membuat halaman tetap berisi konten dasar saat:
+// - dibuka langsung lewat file://
+// - JSON sedang salah format
+// - koneksi ke file JSON gagal
 const FALLBACK_DATA = {
   berita: [
     {
@@ -59,6 +71,12 @@ const FALLBACK_DATA = {
   ]
 };
 
+// =========================================================
+// 3. Helper format tanggal
+// =========================================================
+// Input dari JSON memakai format YYYY-MM-DD.
+// Fungsi ini mengubahnya menjadi format Indonesia,
+// contoh: 2026-10-18 -> 18 Oktober 2026.
 function formatTanggal(value) {
   if (!value) return '';
 
@@ -69,6 +87,11 @@ function formatTanggal(value) {
   }).format(new Date(`${value}T00:00:00`));
 }
 
+// =========================================================
+// 4. Helper ambil data JSON
+// =========================================================
+// `Date.now()` dipakai sebagai cache-buster supaya browser
+// membaca file JSON terbaru setelah file diedit.
 async function loadJson(path) {
   const separator = path.includes('?') ? '&' : '?';
   const response = await fetch(`${path}${separator}v=${Date.now()}`, { cache: 'no-store' });
@@ -76,10 +99,21 @@ async function loadJson(path) {
   return response.json();
 }
 
+// =========================================================
+// 5. Helper class warna
+// =========================================================
+// Contoh:
+// getThemeClass('bt', 'blue') menjadi 'btblue'
+// getThemeClass('tag-', 'green') menjadi 'tag-green'
 function getThemeClass(prefix, theme, fallback = 'blue') {
   return `${prefix}${theme || fallback}`;
 }
 
+// =========================================================
+// 6. Render daftar berita
+// =========================================================
+// Fungsi ini mengambil data dari berita.json lalu membuat
+// kartu berita ke dalam elemen #beritaGrid di index.html.
 function renderBerita(items) {
   const container = document.getElementById('beritaGrid');
   if (!container) return;
@@ -99,6 +133,11 @@ function renderBerita(items) {
   `).join('');
 }
 
+// =========================================================
+// 7. Render daftar pengumuman
+// =========================================================
+// Fungsi ini mengambil data dari pengumuman.json lalu membuat
+// daftar pengumuman ke dalam elemen #pengumumanList.
 function renderPengumuman(items) {
   const container = document.getElementById('pengumumanList');
   if (!container) return;
@@ -114,6 +153,12 @@ function renderPengumuman(items) {
   `).join('');
 }
 
+// =========================================================
+// 8. Render daftar PPID
+// =========================================================
+// Fungsi ini mengambil data dari ppid.json lalu membuat
+// kartu PPID ke dalam elemen #ppidGrid.
+// Jika field `link` diisi, tombol Google Drive akan muncul.
 function renderPpid(items) {
   const container = document.getElementById('ppidGrid');
   if (!container) return;
@@ -128,6 +173,14 @@ function renderPpid(items) {
   `).join('');
 }
 
+// =========================================================
+// 9. Jalankan proses pengisian konten
+// =========================================================
+// Urutan kerjanya:
+// 1. Tampilkan fallback dulu agar halaman tidak kosong.
+// 2. Coba ambil data asli dari file JSON.
+// 3. Jika berhasil, data fallback diganti dengan data JSON.
+// 4. Jika gagal, fallback tetap tampil dan error dicatat di console.
 async function hydrateContent() {
   renderBerita(FALLBACK_DATA.berita);
   renderPengumuman(FALLBACK_DATA.pengumuman);
@@ -152,30 +205,43 @@ async function hydrateContent() {
   }
 }
 
+// =========================================================
+// 10. Menu mobile
+// =========================================================
+// Fungsi ini membuka/menutup menu hamburger pada layar kecil.
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   menu.classList.toggle('open');
 }
 
+// =========================================================
+// 11. Dropdown menu aplikasi
+// =========================================================
+// `stopPropagation()` mencegah klik tombol Aplikasi ikut
+// dianggap sebagai klik di luar dropdown.
 function toggleAppMenu(event) {
   event.stopPropagation();
   document.getElementById('appDropdown').classList.toggle('open');
 }
 
+// Tutup menu mobile setelah salah satu link diklik.
 document.querySelectorAll('.mobile-menu a').forEach((link) => {
   link.addEventListener('click', () => {
     document.getElementById('mobileMenu').classList.remove('open');
   });
 });
 
+// Tutup dropdown Aplikasi saat pengguna klik area lain di halaman.
 document.addEventListener('click', () => {
   document.getElementById('appDropdown')?.classList.remove('open');
 });
 
+// Tutup dropdown Aplikasi setelah salah satu link aplikasi diklik.
 document.querySelectorAll('#appMenu a').forEach((link) => {
   link.addEventListener('click', () => {
     document.getElementById('appDropdown').classList.remove('open');
   });
 });
 
+// Mulai isi konten dinamis ketika script dimuat.
 hydrateContent();

@@ -16,8 +16,11 @@ data/
   berita.json
   pengumuman.json
   ppid.json
-hero.png
-logo.png
+assets/
+  hero.png
+  hero2.png
+  footer.png
+  logo.png
 ```
 
 ## Cara Update Berita
