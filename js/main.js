@@ -206,7 +206,20 @@ async function hydrateContent() {
 }
 
 // =========================================================
-// 10. Menu mobile
+// 10. Toggle tabel UPTD
+// =========================================================
+// Secara awal tabel hanya menampilkan 10 Kepala UPTD.
+// Tombol ini membuka/menutup baris 11-22 agar halaman tetap ringkas.
+function toggleUptdRows(button) {
+  const table = document.querySelector('.uptd-table');
+  const isOpen = table.classList.toggle('show-all');
+
+  button.setAttribute('aria-expanded', String(isOpen));
+  button.textContent = isOpen ? 'Sembunyikan daftar Kepala UPTD' : 'Lihat semua Kepala UPTD';
+}
+
+// =========================================================
+// 11. Menu mobile
 // =========================================================
 // Fungsi ini membuka/menutup menu hamburger pada layar kecil.
 function toggleMenu() {
@@ -215,7 +228,7 @@ function toggleMenu() {
 }
 
 // =========================================================
-// 11. Dropdown menu aplikasi
+// 12. Dropdown menu aplikasi
 // =========================================================
 // `stopPropagation()` mencegah klik tombol Aplikasi ikut
 // dianggap sebagai klik di luar dropdown.

@@ -590,6 +590,7 @@ img { max-width: 100%; }
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
+  min-width: 0;
 }
 .detail-card.primary {
   background: linear-gradient(135deg, var(--navy), var(--navy2));
@@ -634,6 +635,7 @@ img { max-width: 100%; }
   color: var(--muted);
   font-size: 14px;
   line-height: 1.65;
+  overflow-wrap: anywhere;
 }
 .detail-list li,
 .history-list li { margin-bottom: 6px; }
@@ -641,7 +643,9 @@ img { max-width: 100%; }
 .history-list li::marker { color: var(--gold); }
 .uptd-table-wrap {
   margin-top: 12px;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border);
   border-radius: 12px;
 }
@@ -678,6 +682,28 @@ img { max-width: 100%; }
 }
 .uptd-table td:nth-child(3) {
   color: var(--muted);
+}
+.uptd-extra-row {
+  display: none;
+}
+.uptd-table.show-all .uptd-extra-row {
+  display: table-row;
+}
+.uptd-toggle {
+  margin-top: 14px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.uptd-toggle:hover {
+  background: var(--navy3);
+  transform: translateY(-1px);
 }
 
 /* ===================== INFO BAR ===================== */
@@ -834,6 +860,26 @@ footer a:hover { color: var(--gold); }
   .berita-grid { grid-template-columns: 1fr; }
   .visi-grid { grid-template-columns: 1fr; }
   .detail-grid, .struktur-grid, .history-grid, .ppid-grid { grid-template-columns: 1fr; }
+  .history-grid,
+  .history-grid > .detail-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .history-list {
+    padding-left: 16px;
+    font-size: 13px;
+  }
+  .uptd-table {
+    min-width: 560px;
+    font-size: 12px;
+  }
+  .uptd-table th,
+  .uptd-table td {
+    padding: 9px 10px;
+  }
+  .uptd-table-wrap {
+    width: 100%;
+  }
   .info-bar { grid-template-columns: 1fr; padding: 32px 16px; }
   .section-hdr { flex-direction: column; gap: 10px; align-items: flex-start; }
   .footer-main { grid-template-columns: 1fr; padding: 28px 16px; }
@@ -843,4 +889,14 @@ footer a:hover { color: var(--gold); }
 @media (max-width: 480px) {
   .layanan-grid { grid-template-columns: 1fr 1fr; }
   .stats-strip { grid-template-columns: 1fr 1fr; }
+  .detail-card {
+    padding: 16px;
+  }
+  .uptd-table {
+    min-width: 500px;
+  }
+  .uptd-toggle {
+    width: 100%;
+    justify-content: center;
+  }
 }
