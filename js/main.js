@@ -509,7 +509,91 @@ document.addEventListener('click', (event) => {
 });
 
 // =========================================================
-// 12. Popup pejabat UPTD
+// 12. Popup Galeri Instagram
+// =========================================================
+// Galeri kegiatan belum dibuat sebagai halaman terpisah. Untuk saat ini
+// tombol Galeri membuka popup penjelasan, lalu mengarahkan pengguna
+// ke Instagram resmi BPAD NTT yang berisi dokumentasi kegiatan terbaru.
+const GALLERY_INSTAGRAM_URL = 'https://www.instagram.com/bpad_ntt/';
+
+function buildGalleryModal() {
+  const modal = document.createElement('div');
+  modal.className = 'gallery-modal';
+  modal.id = 'galleryModal';
+  modal.setAttribute('aria-hidden', 'true');
+
+  const card = document.createElement('div');
+  card.className = 'gallery-modal-card';
+  card.setAttribute('role', 'dialog');
+  card.setAttribute('aria-modal', 'true');
+  card.setAttribute('aria-labelledby', 'galleryModalTitle');
+
+  const icon = document.createElement('div');
+  icon.className = 'gallery-modal-icon';
+  icon.innerHTML = '<i class="ti ti-brand-instagram"></i>';
+
+  const eyebrow = document.createElement('span');
+  eyebrow.className = 'gallery-modal-eyebrow';
+  eyebrow.textContent = 'Galeri Kegiatan';
+
+  const title = document.createElement('h3');
+  title.id = 'galleryModalTitle';
+  title.textContent = 'Lihat Kegiatan Terbaru BPAD NTT';
+
+  const message = document.createElement('p');
+  message.textContent = 'Anda akan diarahkan ke Instagram resmi BPAD NTT yang berisi dokumentasi kegiatan, publikasi layanan, dan informasi terbaru dari BPAD Provinsi Nusa Tenggara Timur.';
+
+  const actions = document.createElement('div');
+  actions.className = 'gallery-modal-actions';
+
+  const closeButton = document.createElement('button');
+  closeButton.className = 'gallery-close';
+  closeButton.type = 'button';
+  closeButton.textContent = 'Tutup';
+  closeButton.addEventListener('click', closeGalleryModal);
+
+  const instagramButton = document.createElement('button');
+  instagramButton.className = 'gallery-open-instagram';
+  instagramButton.type = 'button';
+  instagramButton.innerHTML = '<i class="ti ti-brand-instagram"></i> Buka Instagram BPAD NTT';
+  instagramButton.addEventListener('click', () => {
+    closeGalleryModal();
+    window.open(GALLERY_INSTAGRAM_URL, '_blank', 'noopener');
+  });
+
+  actions.append(closeButton, instagramButton);
+  card.append(icon, eyebrow, title, message, actions);
+  modal.append(card);
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeGalleryModal();
+  });
+
+  return modal;
+}
+
+function openGalleryModal() {
+  const modal = document.getElementById('galleryModal') || buildGalleryModal();
+
+  document.getElementById('mobileMenu')?.classList.remove('open');
+  document.getElementById('appDropdown')?.classList.remove('open');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+function closeGalleryModal() {
+  const modal = document.getElementById('galleryModal');
+  if (!modal) return;
+
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
+// =========================================================
+// 13. Popup pejabat UPTD
 // =========================================================
 // Nama UPTD di tabel dibuat bisa diklik. Saat diklik, detail
 // pejabat UPTD akan muncul di modal tanpa pindah halaman.
@@ -640,11 +724,12 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeUptdModal();
     closePpidLinkModal();
+    closeGalleryModal();
   }
 });
 
 // =========================================================
-// 13. Toggle tabel UPTD
+// 14. Toggle tabel UPTD
 // =========================================================
 // Secara awal tabel hanya menampilkan 10 Kepala UPTD.
 // Tombol ini membuka/menutup baris 11-22 agar halaman tetap ringkas.
@@ -657,7 +742,7 @@ function toggleUptdRows(button) {
 }
 
 // =========================================================
-// 14. Menu mobile
+// 15. Menu mobile
 // =========================================================
 // Fungsi ini membuka/menutup menu hamburger pada layar kecil.
 function toggleMenu() {
@@ -666,7 +751,7 @@ function toggleMenu() {
 }
 
 // =========================================================
-// 15. Dropdown menu aplikasi
+// 16. Dropdown menu aplikasi
 // =========================================================
 // `stopPropagation()` mencegah klik tombol Aplikasi ikut
 // dianggap sebagai klik di luar dropdown.
@@ -676,7 +761,7 @@ function toggleAppMenu(event) {
 }
 
 // =========================================================
-// 16. Tanggal update PAD hari ini
+// 17. Tanggal update PAD hari ini
 // =========================================================
 // Komponen PAD memakai placeholder sampai tersedia sumber data resmi,
 // tetapi tanggal update dibuat otomatis agar selalu sesuai hari akses.
@@ -694,7 +779,7 @@ function updatePadTodayDate() {
 }
 
 // =========================================================
-// 17. Animasi halus saat scroll
+// 18. Animasi halus saat scroll
 // =========================================================
 // Elemen penting diberi class scroll-reveal secara otomatis.
 // IntersectionObserver membuat animasi baru berjalan saat elemen
