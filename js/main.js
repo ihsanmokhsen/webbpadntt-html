@@ -830,7 +830,7 @@ function initScrollAnimations() {
 
   const prepareRevealElements = () => {
     document.querySelectorAll(revealSelectors.join(',')).forEach((element, index) => {
-      if (observedElements.has(element) || element.closest('.chatbot-widget')) return;
+      if (observedElements.has(element)) return;
 
       const stagger = Math.min(index % 6, 5) * 70;
       element.style.setProperty('--reveal-delay', `${stagger}ms`);
